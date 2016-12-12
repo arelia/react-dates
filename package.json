@@ -1,6 +1,6 @@
 {
-  "name": "react-dates",
-  "version": "7.0.1",
+  "name": "@sproutsocial/react-dates",
+  "version": "7.0.2",
   "description": "A responsive and accessible date range picker component built with React",
   "main": "index.js",
   "scripts": {
@@ -38,12 +38,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/airbnb/react-dates.git"
+    "url": "git+https://github.com/sproutsocial/react-dates.git"
   },
   "author": "Maja Wichrowska <maja.wichrowska@airbnb.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/airbnb/react-dates/issues"
+    "url": "https://github.com/sproutsocial/react-dates/issues"
   },
   "homepage": "https://github.com/airbnb/react-dates#readme",
   "devDependencies": {
