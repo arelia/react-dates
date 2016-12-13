@@ -125,6 +125,7 @@ export default class DateRangePicker extends React.Component {
       withFullScreenPortal,
       anchorDirection,
     } = this.props;
+
     const dayPickerClassName = cx('DateRangePicker__picker', {
       'DateRangePicker__picker--direction-left': anchorDirection === ANCHOR_LEFT,
       'DateRangePicker__picker--direction-right': anchorDirection === ANCHOR_RIGHT,
@@ -303,37 +304,34 @@ export default class DateRangePicker extends React.Component {
 
     return (
       <div className="DateRangePicker">
-        <OutsideClickHandler onOutsideClick={onOutsideClick}>
-          <DateRangePickerInputController
-            startDate={startDate}
-            startDateId={startDateId}
-            startDatePlaceholderText={startDatePlaceholderText}
-            isStartDateFocused={focusedInput === START_DATE}
-            endDate={endDate}
-            endDateId={endDateId}
-            endDatePlaceholderText={endDatePlaceholderText}
-            isEndDateFocused={focusedInput === END_DATE}
-            displayFormat={displayFormat}
-            showClearDates={showClearDates}
-            showCaret={!withPortal && !withFullScreenPortal}
-            showDefaultInputIcon={showDefaultInputIcon}
-            customInputIcon={customInputIcon}
-            customArrowIcon={customArrowIcon}
-            disabled={disabled}
-            required={required}
-            reopenPickerOnClearDates={reopenPickerOnClearDates}
-            keepOpenOnDateSelect={keepOpenOnDateSelect}
-            isOutsideRange={isOutsideRange}
-            withFullScreenPortal={withFullScreenPortal}
-            onDatesChange={onDatesChange}
-            onFocusChange={onFocusChange}
-            renderDay={renderDay}
-            phrases={phrases}
-            screenReaderMessage={screenReaderInputMessage}
-          />
-
-          {this.maybeRenderDayPickerWithPortal()}
-        </OutsideClickHandler>
+        {this.maybeRenderDayPickerWithPortal()}
+        <DateRangePickerInputController
+          startDate={startDate}
+          startDateId={startDateId}
+          startDatePlaceholderText={startDatePlaceholderText}
+          isStartDateFocused={focusedInput === START_DATE}
+          endDate={endDate}
+          endDateId={endDateId}
+          endDatePlaceholderText={endDatePlaceholderText}
+          isEndDateFocused={focusedInput === END_DATE}
+          displayFormat={displayFormat}
+          showClearDates={showClearDates}
+          showCaret={!withPortal && !withFullScreenPortal}
+          showDefaultInputIcon={showDefaultInputIcon}
+          customInputIcon={customInputIcon}
+          customArrowIcon={customArrowIcon}
+          disabled={disabled}
+          required={required}
+          reopenPickerOnClearDates={reopenPickerOnClearDates}
+          keepOpenOnDateSelect={keepOpenOnDateSelect}
+          isOutsideRange={isOutsideRange}
+          withFullScreenPortal={withFullScreenPortal}
+          onDatesChange={onDatesChange}
+          onFocusChange={onFocusChange}
+          renderDay={renderDay}
+          phrases={phrases}
+          screenReaderMessage={screenReaderInputMessage}
+        />
       </div>
     );
   }
