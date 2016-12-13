@@ -305,6 +305,7 @@ export default class DateRangePicker extends React.Component {
     return (
       <div className="DateRangePicker">
         {this.maybeRenderDayPickerWithPortal()}
+
         <DateRangePickerInputController
           startDate={startDate}
           startDateId={startDateId}
