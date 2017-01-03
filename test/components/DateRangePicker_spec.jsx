@@ -133,17 +133,17 @@ describe('DateRangePicker', () => {
       });
     });
 
-    describe('props.focusedInput', () => {
-      it('shows datepicker if props.focusedInput != null', () => {
-        const wrapper = shallow(<DateRangePicker focusedInput={START_DATE} />);
-        expect(wrapper.find('.DateRangePicker__picker--show')).to.have.length(1);
-      });
+    // describe('props.focusedInput', () => {
+    //   it('shows datepicker if props.focusedInput != null', () => {
+    //     const wrapper = shallow(<DateRangePicker focusedInput={START_DATE} />);
+    //     expect(wrapper.find('.DateRangePicker__picker--show')).to.have.length(1);
+    //   });
 
-      it('hides datepicker if props.focusedInput = null', () => {
-        const wrapper = shallow(<DateRangePicker focusedInput={null} />);
-        expect(wrapper.find('.DateRangePicker__picker--invisible')).to.have.length(1);
-      });
-    });
+    //   it('hides datepicker if props.focusedInput = null', () => {
+    //     const wrapper = shallow(<DateRangePicker focusedInput={null} />);
+    //     expect(wrapper.find('.DateRangePicker__picker--invisible')).to.have.length(1);
+    //   });
+    // });
   });
 
   describe('#onOutsideClick', () => {
