@@ -98,7 +98,6 @@ export default class DateRangePicker extends React.Component {
 
   getDayPickerContainerClasses() {
     const {
-      focusedInput,
       orientation,
       withPortal,
       withFullScreenPortal,
