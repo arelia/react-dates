@@ -103,11 +103,8 @@ export default class DateRangePicker extends React.Component {
       withFullScreenPortal,
       anchorDirection,
     } = this.props;
-    const showDatepicker = focusedInput === START_DATE || focusedInput === END_DATE;
 
     const dayPickerClassName = cx('DateRangePicker__picker', {
-      'DateRangePicker__picker--show': showDatepicker,
-      'DateRangePicker__picker--invisible': !showDatepicker,
       'DateRangePicker__picker--direction-left': anchorDirection === ANCHOR_LEFT,
       'DateRangePicker__picker--direction-right': anchorDirection === ANCHOR_RIGHT,
       'DateRangePicker__picker--horizontal': orientation === HORIZONTAL_ORIENTATION,
@@ -262,6 +259,8 @@ export default class DateRangePicker extends React.Component {
 
     return (
       <div className="DateRangePicker">
+        {this.maybeRenderDayPickerWithPortal()}
+
         <DateRangePickerInputController
           startDate={startDate}
           startDateId={startDateId}
@@ -284,8 +283,6 @@ export default class DateRangePicker extends React.Component {
           onFocusChange={onFocusChange}
           phrases={phrases}
         />
-
-        {this.maybeRenderDayPickerWithPortal()}
       </div>
     );
   }
