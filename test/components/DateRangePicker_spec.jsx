@@ -147,7 +147,6 @@ describe('DateRangePicker', () => {
     });
 
     // describe('props.focusedInput', () => {
-<<<<<<< HEAD
     //   it('renders <DayPickerRangeController> if props.focusedInput != null', () => {
     //     const wrapper = shallow(<DateRangePicker focusedInput={START_DATE} />);
     //     expect(wrapper.find(DayPickerRangeController)).to.have.length(1);
@@ -156,16 +155,6 @@ describe('DateRangePicker', () => {
     //   it('does not render <DayPickerRangeController> if props.focusedInput = null', () => {
     //     const wrapper = shallow(<DateRangePicker focusedInput={null} />);
     //     expect(wrapper.find(DayPickerRangeController)).to.have.length(0);
-=======
-    //   it('shows datepicker if props.focusedInput != null', () => {
-    //     const wrapper = shallow(<DateRangePicker focusedInput={START_DATE} />);
-    //     expect(wrapper.find('.DateRangePicker__picker--show')).to.have.length(1);
-    //   });
-
-    //   it('hides datepicker if props.focusedInput = null', () => {
-    //     const wrapper = shallow(<DateRangePicker focusedInput={null} />);
-    //     expect(wrapper.find('.DateRangePicker__picker--invisible')).to.have.length(1);
->>>>>>> fix for validation and removing change long validation dependency
     //   });
     // });
   });
