@@ -14,7 +14,7 @@ import OrientationShape from '../shapes/OrientationShape';
 
 import { HORIZONTAL_ORIENTATION, VERTICAL_ORIENTATION } from '../../constants';
 
-const CALENDAR_MONTH_WIDTH = 246;
+const CALENDAR_MONTH_WIDTH = 244;
 const DAY_PICKER_PADDING = 9;
 const MONTH_PADDING = 23;
 const PREV_TRANSITION = 'prev';
@@ -96,6 +96,7 @@ export default class DayPicker extends React.Component {
   componentDidMount() {
     if (this.isHorizontal()) {
       this.adjustDayPickerHeight();
+      this.initializeDayPickerWidth();
     }
   }
 
@@ -316,12 +317,8 @@ export default class DayPicker extends React.Component {
   }
 
   renderWeekHeader(index) {
-    const { numberOfMonths } = this.props;
-
-    const widthPercentage = 100 / numberOfMonths;
     const horizontalStyle = {
-      width: `${widthPercentage}%`,
-      left: `${widthPercentage * index}%`,
+      left: index * CALENDAR_MONTH_WIDTH,
     };
 
     const style = this.isHorizontal() ? horizontalStyle : {};
