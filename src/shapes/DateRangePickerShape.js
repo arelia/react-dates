@@ -9,6 +9,7 @@ export default {
   startDate: momentPropTypes.momentObj,
   endDate: momentPropTypes.momentObj,
   focusedInput: FocusedInputShape,
+  screenReaderInputMessage: PropTypes.string,
   minimumNights: PropTypes.number,
   isDayBlocked: PropTypes.func,
   isOutsideRange: PropTypes.func,
@@ -19,6 +20,7 @@ export default {
   showClearDates: PropTypes.bool,
   disabled: PropTypes.bool,
   required: PropTypes.bool,
+  showDefaultInputIcon: PropTypes.bool,
 
   orientation: OrientationShape,
   anchorDirection: anchorDirectionShape,
@@ -37,6 +39,8 @@ export default {
   onFocusChange: PropTypes.func,
   onPrevMonthClick: PropTypes.func,
   onNextMonthClick: PropTypes.func,
+
+  renderDay: PropTypes.func,
 
   // i18n
   displayFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),

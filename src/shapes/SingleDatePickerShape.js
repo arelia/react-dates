@@ -14,6 +14,7 @@ export default {
   keepOpenOnDateSelect: PropTypes.bool,
   disabled: PropTypes.bool,
   required: PropTypes.bool,
+  screenReaderInputMessage: PropTypes.string,
 
   onDateChange: PropTypes.func,
   onFocusChange: PropTypes.func,
@@ -36,6 +37,8 @@ export default {
 
   onPrevMonthClick: PropTypes.func,
   onNextMonthClick: PropTypes.func,
+
+  renderDay: PropTypes.func,
 
   // i18n
   displayFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),

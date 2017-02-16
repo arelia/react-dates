@@ -43,17 +43,14 @@ describe('SingleDatePickerInput', () => {
 
       it('has .SingleDatePickerInput__clear-date--hide class if there is no date',
         () => {
-          const wrapper = shallow(
-            <SingleDatePickerInput showClearDate dateValue={null} />
-          );
+          const wrapper = shallow(<SingleDatePickerInput showClearDate displayValue={null} />);
           expect(wrapper.find('.SingleDatePickerInput__clear-date--hide')).to.have.lengthOf(1);
         });
 
       it('does not have .SingleDatePickerInput__clear-date--hide class if there is a date',
         () => {
-          const wrapper = shallow(
-            <SingleDatePickerInput showClearDate dateValue="2016-07-13" />
-          );
+          const wrapper =
+            shallow(<SingleDatePickerInput showClearDate displayValue="2016-07-13" />);
           expect(wrapper.find('.SingleDatePickerInput__clear-date--hide')).to.have.lengthOf(0);
         });
     });
@@ -85,7 +82,7 @@ describe('SingleDatePickerInput', () => {
           <SingleDatePickerInput
             onClearDate={onClearDateSpy}
             showClearDate
-          />
+          />,
         );
         const clearDateWrapper = wrapper.find('.SingleDatePickerInput__clear-date');
         clearDateWrapper.simulate('click');
@@ -97,7 +94,7 @@ describe('SingleDatePickerInput', () => {
       it('onClearDateMouseEnter gets triggered', () => {
         const onClearDateMouseEnterSpy = sinon.spy(
           SingleDatePickerInput.prototype,
-          'onClearDateMouseEnter'
+          'onClearDateMouseEnter',
         );
         const wrapper = shallow(<SingleDatePickerInput showClearDate />);
         const clearDateWrapper = wrapper.find('.SingleDatePickerInput__clear-date');
@@ -112,7 +109,7 @@ describe('SingleDatePickerInput', () => {
       it('onClearDateMouseLeave gets triggered', () => {
         const onClearDateMouseLeaveSpy = sinon.spy(
           SingleDatePickerInput.prototype,
-          'onClearDateMouseLeave'
+          'onClearDateMouseLeave',
         );
         const wrapper = shallow(<SingleDatePickerInput showClearDate />);
         const clearDateWrapper = wrapper.find('.SingleDatePickerInput__clear-date');

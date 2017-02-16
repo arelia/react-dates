@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import momentPropTypes from 'react-moment-proptypes';
 import moment from 'moment';
-import includes from 'array-includes';
 
 import isTouchDevice from '../utils/isTouchDevice';
 
@@ -10,7 +9,7 @@ import isNextDay from '../utils/isNextDay';
 import isSameDay from '../utils/isSameDay';
 
 import FocusedInputShape from '../shapes/FocusedInputShape';
-import OrientationShape from '../shapes/OrientationShape';
+import ScrollableOrientationShape from '../shapes/ScrollableOrientationShape';
 
 import {
   START_DATE,
@@ -37,31 +36,25 @@ const propTypes = {
   // DayPicker props
   enableOutsideDays: PropTypes.bool,
   numberOfMonths: PropTypes.number,
-  orientation: OrientationShape,
+  orientation: ScrollableOrientationShape,
   withPortal: PropTypes.bool,
-  hidden: PropTypes.bool,
   initialVisibleMonth: PropTypes.func,
 
   navPrev: PropTypes.node,
   navNext: PropTypes.node,
 
-  onDayClick: PropTypes.func,
-  onDayMouseDown: PropTypes.func,
-  onDayMouseUp: PropTypes.func,
-  onDayMouseEnter: PropTypes.func,
-  onDayMouseLeave: PropTypes.func,
-  onDayTouchStart: PropTypes.func,
-  onDayTouchEnd: PropTypes.func,
-  onDayTouchTap: PropTypes.func,
   onPrevMonthClick: PropTypes.func,
   onNextMonthClick: PropTypes.func,
   onOutsideClick: PropTypes.func,
+  renderDay: PropTypes.func,
 
   // i18n
   monthFormat: PropTypes.string,
 };
 
 const defaultProps = {
+  startDate: undefined, // TODO: use null
+  endDate: undefined, // TODO: use null
   onDatesChange() {},
 
   focusedInput: null,
@@ -78,24 +71,17 @@ const defaultProps = {
   numberOfMonths: 1,
   orientation: HORIZONTAL_ORIENTATION,
   withPortal: false,
-  hidden: false,
 
   initialVisibleMonth: () => moment(),
 
   navPrev: null,
   navNext: null,
 
-  onDayClick() {},
-  onDayMouseDown() {},
-  onDayMouseUp() {},
-  onDayMouseEnter() {},
-  onDayMouseLeave() {},
-  onDayTouchStart() {},
-  onDayTouchTap() {},
-  onDayTouchEnd() {},
   onPrevMonthClick() {},
   onNextMonthClick() {},
   onOutsideClick() {},
+
+  renderDay: null,
 
   // i18n
   monthFormat: 'MMMM YYYY',
@@ -120,10 +106,10 @@ export default class DayPickerRangeController extends React.Component {
     this.today = moment();
   }
 
-  onDayClick(day, modifiers, e) {
+  onDayClick(day, e) {
     const { keepOpenOnDateSelect, minimumNights } = this.props;
     if (e) e.preventDefault();
-    if (includes(modifiers, 'blocked')) return;
+    if (this.isBlocked(day)) return;
 
     const { focusedInput } = this.props;
     let { startDate, endDate } = this.props;
@@ -175,7 +161,7 @@ export default class DayPickerRangeController extends React.Component {
     if (focusedInput !== END_DATE) return false;
 
     if (startDate) {
-      const dayDiff = day.diff(startDate, 'days');
+      const dayDiff = day.diff(startDate.clone().startOf('day').hour(12), 'days');
       return dayDiff < minimumNights && dayDiff >= 0;
     }
     return isOutsideRange(moment(day).subtract(minimumNights, 'days'));
@@ -251,6 +237,7 @@ export default class DayPickerRangeController extends React.Component {
       enableOutsideDays,
       initialVisibleMonth,
       focusedInput,
+      renderDay,
     } = this.props;
 
     const modifiers = {
@@ -277,15 +264,14 @@ export default class DayPickerRangeController extends React.Component {
 
     return (
       <DayPicker
-        ref={ref => { this.dayPicker = ref; }}
+        ref={(ref) => { this.dayPicker = ref; }}
         orientation={orientation}
         enableOutsideDays={enableOutsideDays}
         modifiers={modifiers}
         numberOfMonths={numberOfMonths}
+        onDayClick={this.onDayClick}
         onDayMouseEnter={this.onDayMouseEnter}
         onDayMouseLeave={this.onDayMouseLeave}
-        onDayMouseDown={this.onDayClick}
-        onDayTouchTap={this.onDayClick}
         onPrevMonthClick={onPrevMonthClick}
         onNextMonthClick={onNextMonthClick}
         monthFormat={monthFormat}
@@ -295,6 +281,7 @@ export default class DayPickerRangeController extends React.Component {
         onOutsideClick={onOutsideClick}
         navPrev={navPrev}
         navNext={navNext}
+        renderDay={renderDay}
       />
     );
   }

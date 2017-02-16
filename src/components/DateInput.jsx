@@ -6,7 +6,9 @@ import isTouchDevice from '../utils/isTouchDevice';
 const propTypes = {
   id: PropTypes.string.isRequired,
   placeholder: PropTypes.string, // also used as label
-  dateValue: PropTypes.string,
+  displayValue: PropTypes.string,
+  inputValue: PropTypes.string,
+  screenReaderMessage: PropTypes.string,
   focused: PropTypes.bool,
   disabled: PropTypes.bool,
   required: PropTypes.bool,
@@ -20,7 +22,9 @@ const propTypes = {
 
 const defaultProps = {
   placeholder: 'Select Date',
-  dateValue: '',
+  displayValue: '',
+  inputValue: '',
+  screenReaderMessage: '',
   focused: false,
   disabled: false,
   required: false,
@@ -46,7 +50,7 @@ export default class DateInput extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.dateValue && nextProps.dateValue) {
+    if (!this.props.displayValue && nextProps.displayValue) {
       this.setState({
         dateString: '',
       });
@@ -88,7 +92,9 @@ export default class DateInput extends React.Component {
     const {
       id,
       placeholder,
-      dateValue,
+      displayValue,
+      inputValue,
+      screenReaderMessage,
       focused,
       showCaret,
       onFocus,
@@ -96,7 +102,9 @@ export default class DateInput extends React.Component {
       required,
     } = this.props;
 
-    const value = dateValue || dateString;
+    const displayText = displayValue || inputValue || dateString || placeholder || '';
+    const value = inputValue || displayValue || dateString || '';
+    const screenReaderMessageId = `DateInput__screen-reader-message-${id}`;
 
     return (
       <div
@@ -104,13 +112,9 @@ export default class DateInput extends React.Component {
           'DateInput--with-caret': showCaret && focused,
           'DateInput--disabled': disabled,
         })}
-        onClick={onFocus}
       >
-        <label className="DateInput__label" htmlFor={id}>
-          {placeholder}
-        </label>
-
         <input
+          aria-label={placeholder}
           className="DateInput__input"
           type="text"
           id={id}
@@ -125,7 +129,14 @@ export default class DateInput extends React.Component {
           disabled={disabled}
           readOnly={this.isTouchDevice}
           required={required}
+          aria-describedby={screenReaderMessage && screenReaderMessageId}
         />
+
+        {screenReaderMessage &&
+          <p id={screenReaderMessageId} className="screen-reader-only">
+            {screenReaderMessage}
+          </p>
+        }
 
         <div
           className={cx('DateInput__display-text', {
@@ -134,7 +145,7 @@ export default class DateInput extends React.Component {
             'DateInput__display-text--disabled': disabled,
           })}
         >
-          {value || placeholder}
+          {displayText}
         </div>
       </div>
     );

@@ -1,14 +1,16 @@
 import React, { PropTypes } from 'react';
+import { forbidExtraProps } from 'airbnb-prop-types';
 import cx from 'classnames';
 
 import DateInput from './DateInput';
 import CloseButton from '../svg/close.svg';
 
-const propTypes = {
+const propTypes = forbidExtraProps({
   id: PropTypes.string.isRequired,
   placeholder: PropTypes.string, // also used as label
-  dateValue: PropTypes.string,
-  border: PropTypes.bool,
+  displayValue: PropTypes.string,
+  inputValue: PropTypes.string,
+  screenReaderMessage: PropTypes.string,
   focused: PropTypes.bool,
   disabled: PropTypes.bool,
   required: PropTypes.bool,
@@ -25,18 +27,21 @@ const propTypes = {
   phrases: PropTypes.shape({
     clearDate: PropTypes.node,
   }),
-};
+});
 
 const defaultProps = {
   placeholder: 'Select Date',
-  dateValue: '',
-  border: false,
+  displayValue: '',
+  inputValue: '',
+  screenReaderMessage: '',
   focused: false,
   disabled: false,
   required: false,
   showCaret: false,
+  showClearDate: false,
 
   onChange() {},
+  onClearDate() {},
   onFocus() {},
   onKeyDownShiftTab() {},
   onKeyDownTab() {},
@@ -75,7 +80,8 @@ export default class SingleDatePickerInput extends React.Component {
     const {
       id,
       placeholder,
-      dateValue,
+      displayValue,
+      inputValue,
       focused,
       disabled,
       required,
@@ -87,6 +93,7 @@ export default class SingleDatePickerInput extends React.Component {
       onFocus,
       onKeyDownShiftTab,
       onKeyDownTab,
+      screenReaderMessage,
     } = this.props;
 
     return (
@@ -94,7 +101,9 @@ export default class SingleDatePickerInput extends React.Component {
         <DateInput
           id={id}
           placeholder={placeholder} // also used as label
-          dateValue={dateValue}
+          displayValue={displayValue}
+          inputValue={inputValue}
+          screenReaderMessage={screenReaderMessage}
           focused={focused}
           disabled={disabled}
           required={required}
@@ -110,7 +119,7 @@ export default class SingleDatePickerInput extends React.Component {
           <button
             type="button"
             className={cx('SingleDatePickerInput__clear-date', {
-              'SingleDatePickerInput__clear-date--hide': !dateValue,
+              'SingleDatePickerInput__clear-date--hide': !displayValue,
               'SingleDatePickerInput__clear-date--hover': isClearDateHovered,
             })}
             onMouseEnter={this.onClearDateMouseEnter}
