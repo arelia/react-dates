@@ -157,6 +157,11 @@ storiesOf('DateRangePicker', module)
       />
     </div>
   ))
+  .addWithInfo('with inlined calendar', () => (
+    <DateRangePickerWrapper
+      withInlineCalendar
+    />
+  ))
   .addWithInfo('horizontal with portal', () => (
     <DateRangePickerWrapper
       withPortal
