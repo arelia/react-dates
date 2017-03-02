@@ -321,7 +321,7 @@ export default class DateRangePicker extends React.Component {
             isEndDateFocused={focusedInput === END_DATE}
             displayFormat={displayFormat}
             showClearDates={showClearDates}
-            showCaret={!withPortal && !withFullScreenPortal}
+            showCaret={!withPortal && !withFullScreenPortal && !withInlineCalendar}
             showDefaultInputIcon={showDefaultInputIcon}
             customInputIcon={customInputIcon}
             customArrowIcon={customArrowIcon}
