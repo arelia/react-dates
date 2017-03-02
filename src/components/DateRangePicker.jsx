@@ -57,6 +57,7 @@ const defaultProps = {
   horizontalMargin: 0,
   withPortal: false,
   withFullScreenPortal: false,
+  withInlineCalendar: false,
 
   onDatesChange() {},
   onFocusChange() {},
@@ -292,6 +293,7 @@ export default class DateRangePicker extends React.Component {
       isOutsideRange,
       withPortal,
       withFullScreenPortal,
+      withInlineCalendar,
       displayFormat,
       reopenPickerOnClearDates,
       keepOpenOnDateSelect,
@@ -300,39 +302,43 @@ export default class DateRangePicker extends React.Component {
       renderDay,
     } = this.props;
 
-    const onOutsideClick = (!withPortal && !withFullScreenPortal) ? this.onOutsideClick : undefined;
+    const onOutsideClick = (!withPortal && !withFullScreenPortal && !withInlineCalendar)
+      ? this.onOutsideClick
+      : undefined;
 
     return (
       <div className="DateRangePicker">
-        {this.maybeRenderDayPickerWithPortal()}
-
-        <DateRangePickerInputController
-          startDate={startDate}
-          startDateId={startDateId}
-          startDatePlaceholderText={startDatePlaceholderText}
-          isStartDateFocused={focusedInput === START_DATE}
-          endDate={endDate}
-          endDateId={endDateId}
-          endDatePlaceholderText={endDatePlaceholderText}
-          isEndDateFocused={focusedInput === END_DATE}
-          displayFormat={displayFormat}
-          showClearDates={showClearDates}
-          showCaret={!withPortal && !withFullScreenPortal}
-          showDefaultInputIcon={showDefaultInputIcon}
-          customInputIcon={customInputIcon}
-          customArrowIcon={customArrowIcon}
-          disabled={disabled}
-          required={required}
-          reopenPickerOnClearDates={reopenPickerOnClearDates}
-          keepOpenOnDateSelect={keepOpenOnDateSelect}
-          isOutsideRange={isOutsideRange}
-          withFullScreenPortal={withFullScreenPortal}
-          onDatesChange={onDatesChange}
-          onFocusChange={onFocusChange}
-          renderDay={renderDay}
-          phrases={phrases}
-          screenReaderMessage={screenReaderInputMessage}
-        />
+        <OutsideClickHandler onOutsideClick={onOutsideClick}>
+          {withInlineCalendar && this.maybeRenderDayPickerWithPortal()}
+          <DateRangePickerInputController
+            startDate={startDate}
+            startDateId={startDateId}
+            startDatePlaceholderText={startDatePlaceholderText}
+            isStartDateFocused={focusedInput === START_DATE}
+            endDate={endDate}
+            endDateId={endDateId}
+            endDatePlaceholderText={endDatePlaceholderText}
+            isEndDateFocused={focusedInput === END_DATE}
+            displayFormat={displayFormat}
+            showClearDates={showClearDates}
+            showCaret={!withPortal && !withFullScreenPortal && !withInlineCalendar}
+            showDefaultInputIcon={showDefaultInputIcon}
+            customInputIcon={customInputIcon}
+            customArrowIcon={customArrowIcon}
+            disabled={disabled}
+            required={required}
+            reopenPickerOnClearDates={reopenPickerOnClearDates}
+            keepOpenOnDateSelect={keepOpenOnDateSelect}
+            isOutsideRange={isOutsideRange}
+            withFullScreenPortal={withFullScreenPortal}
+            onDatesChange={onDatesChange}
+            onFocusChange={onFocusChange}
+            renderDay={renderDay}
+            phrases={phrases}
+            screenReaderMessage={screenReaderInputMessage}
+          />
+          {!withInlineCalendar && this.maybeRenderDayPickerWithPortal()}
+        </OutsideClickHandler>
       </div>
     );
   }
